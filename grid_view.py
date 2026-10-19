@@ -59,7 +59,7 @@ def draw_grid(ax, grid, start, goal, step=None, method=""):
     place_icon(ax, START_ICON, start, "S", "white")
     place_icon(ax, GOAL_ICON, goal, "G", "black")
 
-    # Extra imshow calls can shift the view, so lock it back to the grid
+    # extra imshow calls can shift the view, so lock it back to the grid
     n = grid.shape[0]
     ax.set_xlim(-0.5, n - 0.5)
     ax.set_ylim(n - 0.5, -0.5)

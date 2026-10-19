@@ -17,9 +17,9 @@ def search(grid, start, goal, method="bfs"):
 
     while frontier:
         if method.upper() == "BFS":
-            current = frontier.popleft()   # queue: oldest first → level by level
+            current = frontier.popleft()   # queue - oldest first - level by level
         else:
-            current = frontier.pop()       # stack: newest first → dive deep
+            current = frontier.pop()       # stack - newest first - deep
         order.append(current)
 
         if current == goal:
