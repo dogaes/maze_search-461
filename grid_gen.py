@@ -2,6 +2,7 @@ import numpy as np
 
 OPEN_CELL = 0
 OBSTACLE_CELL = 1
+STUDENT_SEED = 72278
 
 def generate_grid(n=15, obstacle_ratio=0.25, seed=None):
     if n <= 0:

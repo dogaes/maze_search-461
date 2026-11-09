@@ -6,7 +6,7 @@ from tkinter import ttk, messagebox
 SAVE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "last_params.json")
 
 DEFAULTS = {
-    "n": "15", "ratio": "0.25", "method": "BFS", "seed": "",
+    "n": "15", "ratio": "0.25", "method": "BFS", "seed": "72278",
     "start_r": "", "start_c": "", "goal_r": "", "goal_c": "",
     "delay": "0.05", "local": "False",
 }

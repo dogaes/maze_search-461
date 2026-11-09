@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
+import random
 
+from grid_gen import make_environment, STUDENT_SEED
 from grid_gen import make_environment
 from search import search
 from grid_view import draw_grid
@@ -9,12 +11,18 @@ from tree_view import draw_tree
 N = 15              # grid size (N x N)
 RATIO = 0.25        # fraction of cells that are obstacles
 METHOD = "BFS"      # "BFS" or "DFS"
-SEED = None         # set a number to repeat the same maze
+SEED = STUDENT_SEED         # set a number to repeat the same maze
 DELAY = 0.10        # seconds between animation frames
 
 
 def run_search(n=N, ratio=RATIO, method=METHOD, seed=SEED,
                start=None, goal=None, delay=DELAY, local=False):
+    # Always use a concrete seed so every run can be reproduced and displayed
+    if seed is None:
+        seed = random.randint(1, 99999)
+    grid, start, goal = make_environment(n, ratio, start, goal, seed)
+    print(f"Seed: {seed}")
+
     """Generate a maze and animate the search in two windows."""
     grid, start, goal = make_environment(n, ratio, start, goal, seed)
     print(f"Grid {n}x{n}, obstacles {ratio:.0%}, method {method}")
@@ -25,6 +33,7 @@ def run_search(n=N, ratio=RATIO, method=METHOD, seed=SEED,
     # window 1: 2D grid
     fig_grid, ax_grid = plt.subplots(figsize=(6, 6))
     fig_grid.canvas.manager.set_window_title("2D Grid View")
+    fig_grid.canvas.manager.set_window_title(f"2D Grid View  (seed {seed})")
 
     # window 2: search tree
     fig_tree, ax_tree = plt.subplots(figsize=(9, 6))

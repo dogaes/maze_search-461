@@ -1,0 +1,11 @@
+{
+    "description": "4 sizes x 3 obstacle densities = 12 search spaces",
+    "base_seed": 72278,
+    "sizes": [10, 15, 20, 30],
+    "densities": [0.08, 0.16, 0.24],
+    "movements": ["4-way", "8-way"],
+    "heuristics": ["manhattan", "euclidean", "chebyshev", "octile"],
+    "methods": ["BFS", "DFS", "IDDFS", "GREEDY", "ASTAR"],
+    "repeats": 5,
+    "placement": "corners"
+  }
