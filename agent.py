@@ -1,11 +1,3 @@
-"""
-agent.py
---------
-Agent perception and movement rules.
-The agent only observes its immediate neighbors and cannot enter obstacles.
-Movement is either 4-adjacent (N, S, E, W) or 8-adjacent (adds diagonals).
-"""
-
 import math
 from grid_gen import OPEN_CELL, OBSTACLE_CELL
 
@@ -27,23 +19,11 @@ DIAGONAL_COST = math.sqrt(2)  # a diagonal step covers sqrt(2) units of distance
 
 
 def is_open(grid, r, c):
-    """True if (r, c) is inside the grid and not an obstacle."""
     n = grid.shape[0]
     return 0 <= r < n and 0 <= c < n and grid[r, c] == OPEN_CELL
 
 
 def get_neighbors(grid, cell, diagonal=False):
-    """
-    Return the cells the agent may move to from `cell`.
-
-    Args:
-        grid: numpy grid from grid_gen.
-        cell: (row, col) current position.
-        diagonal: False = 4-adjacent moves, True = 8-adjacent moves.
-
-    Diagonal moves are blocked if either side cell is a wall, so the agent
-    cannot squeeze between two obstacles that touch at a corner.
-    """
     r, c = cell
     neighbors = []
     for dr, dc in MOVES_4.values():
@@ -61,7 +41,6 @@ def get_neighbors(grid, cell, diagonal=False):
 
 
 def step_cost(a, b):
-    """Cost of moving from cell a to adjacent cell b: 1 straight, sqrt(2) diagonal."""
     if a[0] != b[0] and a[1] != b[1]:
         return DIAGONAL_COST
     return 1.0

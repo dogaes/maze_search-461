@@ -1,16 +1,3 @@
-"""
-search.py
----------
-Uninformed search (BFS, DFS, ID-DFS) and informed search (Greedy Best-First, A*)
-for the grid agent.
-
-Every search is a generator that yields one "step" dict per node expansion:
-  - visual mode (light=False): full snapshots (frontier, parent, order...) so the
-    grid and tree views can redraw after each expansion.
-  - light mode (light=True): only counts and sizes, no copies. The profiler uses
-    this so that timing and memory measure the search itself, not the drawing data.
-"""
-
 import heapq
 import itertools
 from collections import deque
@@ -37,13 +24,6 @@ def path_cost(path):
 
 def _snapshot(current, children, frontier, parent, order, done, path,
               light=False, explored_size=0):
-    """
-    Build the step dict for one expansion.
-
-    Visual mode copies everything the views need. Light mode records only
-    the numbers the profiler needs (no copying, so it stays fast).
-    `frontier` may be a list of cells or, in light mode, just its size.
-    """
     if light:
         return {
             "current": current,
@@ -68,15 +48,6 @@ def _snapshot(current, children, frontier, parent, order, done, path,
 
 def search(grid, start, goal, method="bfs", diagonal=False,
            heuristic="manhattan", light=False):
-    """
-    Run one search method from start to goal, yielding a step per expansion.
-
-    Args:
-        method: "BFS", "DFS", "IDDFS", "GREEDY" or "ASTAR".
-        diagonal: False = 4-adjacent moves, True = 8-adjacent moves.
-        heuristic: key in heuristics.HEURISTICS (used by GREEDY and ASTAR only).
-        light: True = counts only (for profiling), False = full snapshots (for drawing).
-    """
     method = method.upper()
     if method in ("ASTAR", "A*"):
         yield from best_first_search(grid, start, goal, True, diagonal, heuristic, light)
@@ -122,12 +93,6 @@ def search(grid, start, goal, method="bfs", diagonal=False,
 
 
 def best_first_search(grid, start, goal, use_g, diagonal, heuristic, light=False):
-    """
-    Priority-queue search shared by A* and Greedy Best-First.
-
-    use_g=True  -> A*:     priority f = g + h  (cost so far + estimate)
-    use_g=False -> Greedy: priority f = h      (estimate only)
-    """
     h = HEURISTICS[heuristic]
     tie = itertools.count()                 # last tie-breaker: earlier push wins
     g = {start: 0.0}                        # best known cost from start
@@ -182,13 +147,6 @@ def best_first_search(grid, start, goal, use_g, diagonal, heuristic, light=False
 
 
 def iddfs(grid, start, goal, diagonal, light=False):
-    """
-    Iterative Deepening DFS: depth-limited DFS with limit 0, 1, 2, ...
-
-    Finds the path with the fewest moves (like BFS) at the price of
-    re-expanding shallow cells every round. Each round keeps the shallowest
-    depth each cell was reached at, so the search doesn't explode on grid loops.
-    """
     limit = 0
     total_expanded = 0
 

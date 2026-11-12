@@ -16,11 +16,6 @@ from search import search, path_cost, METHODS, INFORMED
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS_DIR = os.path.join(HERE, "results")
 
-
-# --------------------------------------------------------------------------
-# Single run
-# --------------------------------------------------------------------------
-
 def _trace(grid, start, goal, method, diagonal, heuristic):
     """Run a search in light mode and collect the search-trace counters."""
     generated = 0
@@ -45,14 +40,6 @@ def _trace(grid, start, goal, method, diagonal, heuristic):
 
 def profile_run(grid, start, goal, method, diagonal=False, heuristic="manhattan",
                 optimal_cost=None):
-    """
-    Profile one search on one maze.
-
-    Time and memory are measured in SEPARATE runs: tracemalloc slows Python
-    down a lot, so timing with it switched on would be misleading.
-
-    Returns a dict of metrics (see module docstring).
-    """
     # 1) Timing run: high-resolution wall clock, nothing else switched on
     t0 = time.perf_counter_ns()
     for _ in search(grid, start, goal, method, diagonal, heuristic, light=True):

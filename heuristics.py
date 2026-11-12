@@ -1,10 +1,3 @@
-"""
-heuristics.py
--------------
-Distance estimates h(cell, goal) for Greedy Best-First and A*.
-Cells are (row, col) tuples.
-"""
-
 import math
 
 
